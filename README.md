@@ -30,3 +30,6 @@ Features:
 
 TODO:
  - Specify the RecurseSource and RecreateFolders switches.
+
+Screenshot:
+![Screenshot of the PhotoSorter.App](https://raw.githubusercontent.com/lisardggY/Photosorter/master/assets/photosorter.app.png)
