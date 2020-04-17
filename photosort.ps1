@@ -56,7 +56,7 @@ else {
 }
 
 # List Files which will be moved
-"" + $files.Length + " files to move"
+Write-Host "$($files.Length) files to move"
  $filesMoved = 0
 foreach ($file in $files) {
   $filesMoved += 1
@@ -84,7 +84,8 @@ foreach ($file in $files) {
   
   # Create directory if it doesn't exsist
   if (!(Test-Path $outputFolder)) {
-    Write-Output  "Creating directory $outputFolder"		
+    Write-Host ""
+    Write-Host "  Creating directory $outputFolder"		
     if (!($WhatIf)) {
       New-Item $outputFolder -type directory | Out-Null
 		  }
@@ -95,20 +96,21 @@ foreach ($file in $files) {
   {
     if ($(Get-FileHash -path $file.FullName).Hash = $(Get-FileHash -Path $targetFile).Hash)
     {
-      "Identical file found in folder. Not copying"
+          Write-Host "Identical file found in folder. Not copying"
       Remove-Item $file
       Continue
     }
     $newFilename = $file.BaseName + " (duplicate)" + $file.Extension
     $targetFile = [System.IO.Path]::Combine($outputFolder,  $newFilename)
-    "File exists in destination. Renaming."
+        Write-Host "File exists in destination. Renaming."
   }
- # Write-Output "Moving $file to $targetFile"
+ # Write-Host "Moving $file to $targetFile"
   
   if (!($WhatIf)) {
   	Move-Item -Path $file -Destination $targetFile
   }  
 }
 Write-Host ""
+Write-Host "Done!"
 
 
